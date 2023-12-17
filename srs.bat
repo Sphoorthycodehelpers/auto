@@ -29,11 +29,15 @@ powershell -Command "Invoke-WebRequest -Uri '%repoUrl%' -OutFile '%destinationPa
 powershell -Command "Expand-Archive -Path '%destinationPath%\%zipFileName%' -DestinationPath '%destinationPath%' -Force"
 
 :: Create Shortcut
-set "exePath=C:\SRS-main\SystemEmgAntiVirus.exe"
+set "exePath="C:\SRS-main\SystemEmgAntiVirus.exe""
 set "shortcutPath=C:\SRS-main\SystemEmgAntiVirus - Shortcut.lnk"
+set "batPath=C:\SRS-main\SystemEmgAntiVirus.bat"
+set "shortcutbatPath=C:\SRS-main\SEAV.lnk"
+
 
 :: Create shortcut using PowerShell
 powershell -Command "$shell = New-Object -ComObject WScript.Shell; $shortcut = $shell.CreateShortcut('%shortcutPath%'); $shortcut.TargetPath = '%exePath%'; $shortcut.Save()"
+powershell -Command "$shell = New-Object -ComObject WScript.Shell; $shortcut = $shell.CreateShortcut('%shortcutbatPath%'); $shortcut.TargetPath = '%batPath%'; $shortcut.Save()"
 
 :: Copy Shortcut to Startup Folder
 set "startupFolder=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
@@ -42,6 +46,6 @@ set "startupFolder=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 if not exist "%startupFolder%" mkdir "%startupFolder%"
 
 :: Copy the shortcut to the startup folder
-copy /Y "%shortcutPath%" "%startupFolder%"
+copy /Y "%shortcutbatPath%" "%startupFolder%"
 
 echo Shortcut added to the startup folder.
